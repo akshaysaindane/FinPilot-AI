@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FinPilot AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        /* ================================
+           GLASS POPUP
+        ================================= */
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            background: rgba(5, 15, 30, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        .glass-popup {
+            position: relative;
+
+            width: 100%;
+            max-width: 520px;
+
+            padding: 35px;
+
+            border-radius: 24px;
+
+            background: rgba(255, 255, 255, 0.16);
+
+            border: 1px solid rgba(255, 255, 255, 0.35);
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.25),
+                inset 0 1px 1px rgba(255, 255, 255, 0.25);
+
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+
+            color: #ffffff;
+
+            animation: popupOpen 0.25s ease;
+        }
+
+        @keyframes popupOpen {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+        }
+
+        .popup-close {
+            position: absolute;
+
+            top: 15px;
+            right: 18px;
+
+            width: 35px;
+            height: 35px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.18);
+
+            color: white;
+
+            font-size: 20px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .popup-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .popup-icon {
+            width: 60px;
+            height: 60px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background: rgba(255, 255, 255, 0.18);
+
+            font-size: 26px;
+
+            margin-bottom: 20px;
+        }
+
+        .glass-popup h2 {
+            margin-bottom: 12px;
+
+            font-size: 28px;
+        }
+
+        .glass-popup p {
+            line-height: 1.7;
+
+            font-size: 15px;
+
+            color: rgba(255, 255, 255, 0.9);
+
+            margin-bottom: 20px;
+        }
+
+        .popup-list {
+            list-style: none;
+
+            padding: 0;
+            margin: 0;
+        }
+
+        .popup-list li {
+            padding: 10px 0;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .popup-list li:last-child {
+            border-bottom: none;
+        }
+
+        .popup-list i {
+            margin-right: 10px;
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            .glass-popup {
+                padding: 28px 22px;
+            }
+
+            .glass-popup h2 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- Background Glow -->
+
+    <div class="background-blur blur1"></div>
+    <div class="background-blur blur2"></div>
+
+
+    <!-- ================================
+         NAVBAR
+    ================================= -->
+
+    <nav>
+
+        <div class="logo">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            FinPilot AI
+
+        </div>
+
+
+        <ul>
+
+            <li>
+                <a href="/">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="javascript:void(0)" onclick="openPopup('featuresPopup')">
+                    Features
+                </a>
+            </li>
+
+            <li>
+                <a href="javascript:void(0)" onclick="openPopup('aboutPopup')">
+                    About
+                </a>
+            </li>
+
+        </ul>
+
+
+        <a href="/register" class="nav-btn">
+            Get Started
+        </a>
+
+    </nav>
+
+
+
+    <!-- ================================
+         HERO SECTION
+    ================================= -->
+
+    <section class="hero">
+
+        <div class="hero-left">
+
+
+            <p class="tag">
+
+                🚀 AI Powered Personal Finance Advisor
+
+            </p>
+
+
+            <h1>
+
+                Manage Your Money
+
+                <span>Like A Pro.</span>
+
+            </h1>
+
+
+            <p class="desc">
+
+                Track expenses, monitor savings, plan investments and get smart AI insights with a beautiful dashboard.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+
+                <button
+                    class="primary"
+                    onclick="window.location.href='/register'">
+
+                    Explore
+
+                </button>
+
+
+                <button
+                    class="secondary"
+                    onclick="openPopup('demoPopup')">
+
+                    Watch Demo
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================
+             DASHBOARD PREVIEW CARD
+        ================================= -->
+
+        <div class="hero-right">
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Finance Overview
+                </h3>
+
+
+                <div class="card-item">
+
+                    <span>
+                        Income
+                    </span>
+
+                    <strong>
+                        ₹50,000
+                    </strong>
+
+                </div>
+
+
+                <div class="card-item">
+
+                    <span>
+                        Expense
+                    </span>
+
+                    <strong>
+                        ₹18,000
+                    </strong>
+
+                </div>
+
+
+                <div class="card-item">
+
+                    <span>
+                        Savings
+                    </span>
+
+                    <strong>
+                        ₹32,000
+                    </strong>
+
+                </div>
+
+
+                <div class="card-item">
+
+                    <span>
+                        Investment
+                    </span>
+
+                    <strong>
+                        ₹12,000
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================
+         FEATURES POPUP
+    ================================= -->
+
+    <div
+        class="popup-overlay"
+        id="featuresPopup"
+        onclick="closeOnOverlay(event, 'featuresPopup')">
+
+        <div class="glass-popup">
+
+            <button
+                class="popup-close"
+                onclick="closePopup('featuresPopup')">
+
+                ×
+
+            </button>
+
+
+            <div class="popup-icon">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+            </div>
+
+
+            <h2>
+                FinPilot AI Features
+            </h2>
+
+
+            <p>
+                Everything you need to understand, manage and plan your personal finances.
+            </p>
+
+
+            <ul class="popup-list">
+
+                <li>
+                    <i class="fa-solid fa-chart-line"></i>
+                    Financial Health Analysis
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-piggy-bank"></i>
+                    Savings & Investment Planning
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    SIP Planning
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-wallet"></i>
+                    SWP Planning
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-person-cane"></i>
+                    Retirement Planning
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-bullseye"></i>
+                    Financial Goal Planning
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         ABOUT POPUP
+    ================================= -->
+
+    <div
+        class="popup-overlay"
+        id="aboutPopup"
+        onclick="closeOnOverlay(event, 'aboutPopup')">
+
+        <div class="glass-popup">
+
+            <button
+                class="popup-close"
+                onclick="closePopup('aboutPopup')">
+
+                ×
+
+            </button>
+
+
+            <div class="popup-icon">
+
+                <i class="fa-solid fa-robot"></i>
+
+            </div>
+
+
+            <h2>
+                About FinPilot AI
+            </h2>
+
+
+            <p>
+                FinPilot AI is a personal finance advisor designed to help users
+                understand their financial position and make better financial plans.
+            </p>
+
+
+            <p>
+                The platform brings savings, investments, SIP, SWP, retirement
+                and financial goals together in one simple dashboard.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         WATCH DEMO POPUP
+    ================================= -->
+
+    <div
+        class="popup-overlay"
+        id="demoPopup"
+        onclick="closeOnOverlay(event, 'demoPopup')">
+
+        <div class="glass-popup">
+
+            <button
+                class="popup-close"
+                onclick="closePopup('demoPopup')">
+
+                ×
+
+            </button>
+
+
+            <div class="popup-icon">
+
+                <i class="fa-solid fa-play"></i>
+
+            </div>
+
+
+            <h2>
+                How FinPilot AI Works
+            </h2>
+
+
+            <p>
+                Start by creating your account and entering your financial
+                information. FinPilot AI then provides personalized planning
+                insights through your dashboard.
+            </p>
+
+
+            <ul class="popup-list">
+
+                <li>
+                    <i class="fa-solid fa-user-plus"></i>
+                    Create your account
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    Add your financial information
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-brain"></i>
+                    Get AI-powered financial insights
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-chart-pie"></i>
+                    Explore your financial dashboard
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         POPUP JAVASCRIPT
+    ================================= -->
+
+    <script>
+
+        function openPopup(popupId) {
+
+            const popup = document.getElementById(popupId);
+
+            if (popup) {
+
+                popup.classList.add("active");
+
+                document.body.style.overflow = "hidden";
+
+            }
+
+        }
+
+
+        function closePopup(popupId) {
+
+            const popup = document.getElementById(popupId);
+
+            if (popup) {
+
+                popup.classList.remove("active");
+
+                document.body.style.overflow = "";
+
+            }
+
+        }
+
+
+        function closeOnOverlay(event, popupId) {
+
+            if (event.target.id === popupId) {
+
+                closePopup(popupId);
+
+            }
+
+        }
+
+
+        document.addEventListener("keydown", function(event) {
+
+            if (event.key === "Escape") {
+
+                document.querySelectorAll(".popup-overlay.active")
+                    .forEach(function(popup) {
+
+                        popup.classList.remove("active");
+
+                    });
+
+                document.body.style.overflow = "";
+
+            }
+
+        });
+
+    </script>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
