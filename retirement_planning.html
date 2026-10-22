@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Retirement Planning | FinPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ==============================
+         NAVBAR
+    =============================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            FinPilot <span>AI</span>
+        </div>
+
+
+        <div class="nav-right">
+
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ==============================
+         MAIN PAGE
+    =============================== -->
+
+    <main class="sip-page">
+
+
+        <!-- HEADER -->
+
+        <section class="sip-header">
+
+            <div class="sip-badge">
+                RETIREMENT PLANNER
+            </div>
+
+
+            <h1>
+                Plan Your Retirement
+            </h1>
+
+
+            <p>
+                Estimate your retirement corpus and understand
+                whether your current savings strategy may be enough.
+            </p>
+
+        </section>
+
+
+
+        <!-- ==============================
+             CALCULATOR
+        =============================== -->
+
+        <section class="sip-calculator">
+
+
+            <div class="calculator-title">
+
+                <h2>
+                    Retirement Calculator
+                </h2>
+
+
+                <p>
+                    Enter your current financial details to create
+                    a simple retirement projection.
+                </p>
+
+            </div>
+
+
+
+            <form method="POST">
+
+
+                <div class="sip-form-grid">
+
+
+                    <!-- CURRENT AGE -->
+
+                    <div class="sip-field">
+
+                        <label for="current_age">
+                            Current Age
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="current_age"
+                            name="current_age"
+                            class="sip-input"
+                            placeholder="e.g. 30"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- RETIREMENT AGE -->
+
+                    <div class="sip-field">
+
+                        <label for="retirement_age">
+                            Retirement Age
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="retirement_age"
+                            name="retirement_age"
+                            class="sip-input"
+                            placeholder="e.g. 60"
+                            min="2"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- CURRENT SAVINGS -->
+
+                    <div class="sip-field">
+
+                        <label for="current_savings">
+                            Current Savings
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="current_savings"
+                            name="current_savings"
+                            class="sip-input"
+                            placeholder="e.g. 500000"
+                            min="0"
+                            step="any"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- MONTHLY INVESTMENT -->
+
+                    <div class="sip-field">
+
+                        <label for="monthly_investment">
+                            Monthly Investment
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="monthly_investment"
+                            name="monthly_investment"
+                            class="sip-input"
+                            placeholder="e.g. 20000"
+                            min="0"
+                            step="any"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- EXPECTED RETURN -->
+
+                    <div class="sip-field">
+
+                        <label for="expected_return">
+                            Expected Annual Return (%)
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="expected_return"
+                            name="expected_return"
+                            class="sip-input"
+                            placeholder="e.g. 10"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- MONTHLY EXPENSE -->
+
+                    <div class="sip-field">
+
+                        <label for="monthly_expense">
+                            Expected Monthly Expense
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="monthly_expense"
+                            name="monthly_expense"
+                            class="sip-input"
+                            placeholder="e.g. 40000"
+                            min="1"
+                            step="any"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- CALCULATE BUTTON -->
+
+                <button
+                    type="submit"
+                    class="sip-calculate-btn">
+
+                    Calculate My Retirement Plan
+
+                </button>
+
+
+            </form>
+
+
+        </section>
+
+
+
+        <!-- ==============================
+             RETIREMENT RESULT
+        =============================== -->
+
+        {% if retirement_result %}
+
+
+        <section class="sip-results">
+
+
+            <div class="result-heading">
+
+                <h2>
+                    Your Retirement Projection
+                </h2>
+
+
+                <p>
+                    Here's an estimate based on the information
+                    you provided.
+                </p>
+
+            </div>
+
+
+
+            <!-- MAIN CORPUS -->
+
+            <div class="main-result-card">
+
+                <span>
+                    Estimated Retirement Corpus
+                </span>
+
+
+                <strong>
+                    ₹{{ "{:,.2f}".format(retirement_result["estimated_corpus"]) }}
+                </strong>
+
+
+                <p>
+                    Projected value of your current savings and
+                    future monthly investments at retirement.
+                </p>
+
+            </div>
+
+
+
+            <!-- RESULT GRID -->
+
+            <div class="result-grid">
+
+
+                <!-- REQUIRED CORPUS -->
+
+                <div class="result-card">
+
+                    <span>
+                        Required Corpus
+                    </span>
+
+
+                    <strong>
+                        ₹{{ "{:,.2f}".format(retirement_result["required_corpus"]) }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- CORPUS GAP -->
+
+                <div class="result-card">
+
+                    <span>
+                        Corpus Gap
+                    </span>
+
+
+                    <strong>
+                        ₹{{ "{:,.2f}".format(retirement_result["corpus_gap"]) }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- CURRENT AGE -->
+
+                <div class="result-card">
+
+                    <span>
+                        Current Age
+                    </span>
+
+
+                    <strong>
+                        {{ retirement_result["current_age"] }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- RETIREMENT AGE -->
+
+                <div class="result-card">
+
+                    <span>
+                        Retirement Age
+                    </span>
+
+
+                    <strong>
+                        {{ retirement_result["retirement_age"] }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- YEARS TO RETIREMENT -->
+
+                <div class="result-card">
+
+                    <span>
+                        Years to Retirement
+                    </span>
+
+
+                    <strong>
+                        {{ retirement_result["years_to_retirement"] }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- MONTHLY INVESTMENT -->
+
+                <div class="result-card">
+
+                    <span>
+                        Monthly Investment
+                    </span>
+
+
+                    <strong>
+                        ₹{{ "{:,.2f}".format(retirement_result["monthly_investment"]) }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- EXPECTED RETURN -->
+
+                <div class="result-card">
+
+                    <span>
+                        Expected Return
+                    </span>
+
+
+                    <strong>
+                        {{ retirement_result["expected_return"] }}%
+                    </strong>
+
+                </div>
+
+
+
+                <!-- MONTHLY EXPENSE -->
+
+                <div class="result-card">
+
+                    <span>
+                        Monthly Expense
+                    </span>
+
+
+                    <strong>
+                        ₹{{ "{:,.2f}".format(retirement_result["monthly_expense"]) }}
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ==============================
+                 RETIREMENT ANALYSIS
+            =============================== -->
+
+            <div class="sip-tip">
+
+                <div class="tip-icon">
+                    💡
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Retirement Analysis
+                    </strong>
+
+
+                    <p>
+                        {{ retirement_result["status_message"] }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==============================
+                 PLANNING NOTE
+            =============================== -->
+
+            <div class="sip-tip">
+
+                <div class="tip-icon">
+                    📊
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Planning Note
+                    </strong>
+
+
+                    <p>
+                        This is a simplified projection based on
+                        your expected return and estimated expenses.
+                        Actual market returns, inflation and expenses
+                        may be different.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BACK TO DASHBOARD -->
+
+            <div class="back-dashboard">
+
+                <a href="{{ url_for('dashboard') }}">
+                    ← Back to Dashboard
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        {% endif %}
+
+
+    </main>
+
+
+</body>
+
+</html>
+```

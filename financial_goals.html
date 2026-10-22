@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Financial Goals | FinPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ==============================
+         NAVBAR
+    =============================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            FinPilot <span>AI</span>
+        </div>
+
+
+        <div class="nav-right">
+
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ==============================
+         MAIN PAGE
+    =============================== -->
+
+    <main class="sip-page">
+
+
+        <!-- ==============================
+             HEADER
+        =============================== -->
+
+        <section class="sip-header">
+
+            <div class="sip-badge">
+                FINANCIAL GOAL PLANNER
+            </div>
+
+
+            <h1>
+                Plan Your Financial Goals
+            </h1>
+
+
+            <p>
+                Calculate how much you may need to invest every month
+                to achieve your financial goal.
+            </p>
+
+        </section>
+
+
+
+        <!-- ==============================
+             FLASH MESSAGES
+        =============================== -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+
+        <!-- ==============================
+             CALCULATOR
+        =============================== -->
+
+        <section class="sip-calculator">
+
+
+            <div class="calculator-title">
+
+                <h2>
+                    Goal Calculator
+                </h2>
+
+
+                <p>
+                    Enter your goal and investment details below.
+                </p>
+
+            </div>
+
+
+
+            <form
+                method="POST"
+                action="{{ url_for('financial_goals') }}"
+            >
+
+
+                <div class="sip-form-grid">
+
+
+                    <!-- GOAL NAME -->
+
+                    <div class="sip-field">
+
+                        <label for="goal_name">
+                            Goal Name
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="goal_name"
+                            name="goal_name"
+                            class="sip-input"
+                            placeholder="e.g. House"
+                            value="{{ request.form.get('goal_name', '') }}"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- TARGET AMOUNT -->
+
+                    <div class="sip-field">
+
+                        <label for="target_amount">
+                            Target Amount
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="target_amount"
+                            name="target_amount"
+                            class="sip-input"
+                            placeholder="e.g. 3000000"
+                            min="1"
+                            step="0.01"
+                            value="{{ request.form.get('target_amount', '') }}"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- CURRENT AMOUNT -->
+
+                    <div class="sip-field">
+
+                        <label for="current_amount">
+                            Current Amount
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="current_amount"
+                            name="current_amount"
+                            class="sip-input"
+                            placeholder="e.g. 500000"
+                            min="0"
+                            step="0.01"
+                            value="{{ request.form.get('current_amount', '0') }}"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- TIME TO GOAL -->
+
+                    <div class="sip-field">
+
+                        <label for="years">
+                            Time to Goal
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="years"
+                            name="years"
+                            class="sip-input"
+                            placeholder="e.g. 10"
+                            min="1"
+                            max="100"
+                            value="{{ request.form.get('years', '') }}"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- EXPECTED RETURN -->
+
+                    <div class="sip-field">
+
+                        <label for="expected_return">
+                            Expected Annual Return (%)
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="expected_return"
+                            name="expected_return"
+                            class="sip-input"
+                            placeholder="e.g. 10"
+                            min="0"
+                            max="100"
+                            step="0.1"
+                            value="{{ request.form.get('expected_return', '10') }}"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- CALCULATE BUTTON -->
+
+                <button
+                    type="submit"
+                    class="sip-calculate-btn"
+                >
+
+                    Calculate My Goal
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+            </form>
+
+
+        </section>
+
+
+
+        <!-- ==============================
+             RESULT
+        =============================== -->
+
+        {% if goal_result %}
+
+
+        <section class="sip-results">
+
+
+            <!-- RESULT HEADER -->
+
+            <div class="result-heading">
+
+                <div>
+
+                    <div class="sip-badge">
+                        YOUR PLAN
+                    </div>
+
+
+                    <h2>
+                        {{ goal_result["goal_name"] }} Projection
+                    </h2>
+
+
+                    <p>
+                        Here's an estimate based on the information
+                        you provided.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MAIN RESULT -->
+
+            <div class="main-result-card">
+
+                <p>
+                    Required Monthly Investment
+                </p>
+
+
+                <h3>
+                    ₹{{ "{:,.0f}".format(
+                        goal_result["monthly_required"]
+                    ) }}
+                </h3>
+
+
+                <span>
+                    Estimated monthly investment required
+                    to work toward your goal.
+                </span>
+
+            </div>
+
+
+
+            <!-- RESULT GRID -->
+
+            <div class="result-grid">
+
+
+                <!-- TARGET AMOUNT -->
+
+                <div class="result-card">
+
+                    <span>
+                        Target Amount
+                    </span>
+
+
+                    <strong>
+                        ₹{{ "{:,.0f}".format(
+                            goal_result["target_amount"]
+                        ) }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- CURRENT AMOUNT -->
+
+                <div class="result-card">
+
+                    <span>
+                        Current Amount
+                    </span>
+
+
+                    <strong>
+                        ₹{{ "{:,.0f}".format(
+                            goal_result["current_amount"]
+                        ) }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- FUTURE CURRENT AMOUNT -->
+
+                <div class="result-card">
+
+                    <span>
+                        Future Value of Current Amount
+                    </span>
+
+
+                    <strong>
+                        ₹{{ "{:,.0f}".format(
+                            goal_result["future_current_amount"]
+                        ) }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- REMAINING AMOUNT -->
+
+                <div class="result-card">
+
+                    <span>
+                        Remaining Amount
+                    </span>
+
+
+                    <strong>
+                        ₹{{ "{:,.0f}".format(
+                            goal_result["remaining_amount"]
+                        ) }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- TIME TO GOAL -->
+
+                <div class="result-card">
+
+                    <span>
+                        Time to Goal
+                    </span>
+
+
+                    <strong>
+                        {{ goal_result["years"] }} years
+                    </strong>
+
+                </div>
+
+
+
+                <!-- EXPECTED RETURN -->
+
+                <div class="result-card">
+
+                    <span>
+                        Expected Annual Return
+                    </span>
+
+
+                    <strong>
+                        {{ goal_result["expected_return"] }}%
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ==============================
+                 STATUS
+            =============================== -->
+
+            <div class="sip-tip">
+
+
+                <div class="tip-icon">
+                    💡
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        FinPilot AI Status
+                    </h3>
+
+
+                    <p>
+
+                        You may need to invest approximately
+
+                        <strong>
+                            ₹{{ "{:,.0f}".format(
+                                goal_result["monthly_required"]
+                            ) }}
+                        </strong>
+
+                        every month to target
+
+                        <strong>
+                            ₹{{ "{:,.0f}".format(
+                                goal_result["target_amount"]
+                            ) }}
+                        </strong>
+
+                        in
+
+                        <strong>
+                            {{ goal_result["years"] }}
+                        </strong>
+
+                        years.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==============================
+                 PLANNING NOTE
+            =============================== -->
+
+            <div class="sip-tip">
+
+
+                <div class="tip-icon">
+                    📊
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Planning Note
+                    </h3>
+
+
+                    <p>
+                        This financial goal calculation is an estimated
+                        projection based on the expected annual return
+                        you entered. Actual investment returns can vary
+                        over time, so the actual value may be different.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==============================
+                 SAVED GOALS
+            =============================== -->
+
+            {% if saved_goals %}
+
+
+            <div class="result-heading">
+
+                <div>
+
+                    <div class="sip-badge">
+                        SAVED GOALS
+                    </div>
+
+
+                    <h2>
+                        Your Financial Goals
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="result-grid">
+
+
+                {% for goal in saved_goals %}
+
+
+                <div class="result-card">
+
+
+                    <span>
+                        🎯 {{ goal["goal_name"] }}
+                    </span>
+
+
+                    <strong>
+                        ₹{{ "{:,.0f}".format(
+                            goal["target_amount"]
+                        ) }}
+                    </strong>
+
+
+                    <span>
+
+                        Monthly Investment:
+
+                        ₹{{ "{:,.0f}".format(
+                            goal["monthly_required"]
+                        ) }}
+
+                    </span>
+
+
+                    <span>
+                        {{ goal["years"] }} years
+                    </span>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+            {% endif %}
+
+
+
+            <!-- BACK TO DASHBOARD -->
+
+            <div class="back-dashboard">
+
+                <a href="{{ url_for('dashboard') }}">
+                    ← Back to Dashboard
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        {% endif %}
+
+
+    </main>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

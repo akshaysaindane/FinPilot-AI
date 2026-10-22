@@ -1,0 +1,2142 @@
+/* =========================================
+   FINPILOT AI - MAIN STYLE
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #f7faff;
+    color: #0f172a;
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   BACKGROUND
+   ========================================= */
+
+.background-blur {
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.18;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.blur1 {
+    background: #38bdf8;
+    top: -180px;
+    left: -150px;
+}
+
+.blur2 {
+    background: #6366f1;
+    right: -180px;
+    bottom: -180px;
+}
+
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+
+nav,
+.auth-nav {
+    width: 92%;
+    margin: 20px auto;
+    padding: 18px 38px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+
+    box-shadow: 0 10px 35px rgba(15, 23, 42, 0.07);
+
+    backdrop-filter: blur(18px);
+}
+
+.logo {
+    font-size: 29px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+
+/* Normal navbar */
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+}
+
+nav ul li a {
+    color: #475569;
+    text-decoration: none;
+    font-size: 17px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #2563eb;
+}
+
+
+/* Auth navbar only logo */
+
+.auth-nav {
+    justify-content: flex-start;
+}
+
+.auth-nav a {
+    color: #475569;
+    text-decoration: none;
+}
+
+
+/* =========================================
+   NAV BUTTONS
+   ========================================= */
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.nav-buttons button {
+    padding: 11px 25px;
+    margin-left: 9px;
+
+    border-radius: 30px;
+    cursor: pointer;
+
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.login-btn {
+    background: white;
+    color: #2563eb;
+    border: 1px solid #2563eb;
+}
+
+.register-btn {
+    background: #2563eb;
+    color: white;
+    border: 1px solid #2563eb;
+}
+
+.nav-buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+}
+
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.hero {
+    min-height: 80vh;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 70px 8%;
+}
+
+.hero-left {
+    width: 52%;
+}
+
+.hero-left h1 {
+    font-size: 62px;
+    line-height: 1.15;
+    color: #0f172a;
+}
+
+.hero-left span {
+    color: #2563eb;
+}
+
+.hero-left p {
+    margin: 25px 0;
+
+    max-width: 600px;
+
+    color: #64748b;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   HERO BUTTONS
+   ========================================= */
+
+.hero-buttons button {
+    padding: 15px 32px;
+
+    margin-right: 12px;
+
+    border-radius: 40px;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.primary-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+}
+
+.secondary-btn {
+    background: white;
+    color: #2563eb;
+    border: 1px solid #cbd5e1;
+}
+
+.hero-buttons button:hover {
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   DASHBOARD PREVIEW
+   ========================================= */
+
+.dashboard-card {
+    width: 350px;
+
+    padding: 30px;
+
+    background: white;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 25px;
+
+    box-shadow:
+        0 20px 55px rgba(15, 23, 42, 0.1);
+
+    animation: floatCard 5s ease-in-out infinite;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 23px;
+
+    color: #475569;
+}
+
+
+/* =========================================
+   AUTH CONTAINER
+   ========================================= */
+
+.register-container {
+    width: 100%;
+
+    min-height: calc(100vh - 115px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    perspective: 1400px;
+}
+
+
+/* =========================================
+   AUTH CARD
+   ========================================= */
+
+.register-card {
+    width: 440px;
+    max-width: 100%;
+
+    padding: 42px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 26px;
+
+    box-shadow:
+        0 25px 70px rgba(15, 23, 42, 0.12);
+
+    transform-style: preserve-3d;
+
+    animation: authOpen 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+
+/* =========================================
+   AUTH HEADINGS
+   ========================================= */
+
+.register-card h1 {
+    font-size: 36px;
+    line-height: 1.2;
+
+    margin-bottom: 12px;
+
+    color: #0f172a;
+}
+
+.register-card > p {
+    margin-bottom: 25px;
+
+    color: #64748b;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   INPUTS
+   ========================================= */
+
+.register-card input {
+    width: 100%;
+
+    padding: 15px 17px;
+
+    margin: 7px 0;
+
+    border: 1px solid #dbe3ed;
+
+    border-radius: 13px;
+
+    outline: none;
+
+    background: #f8fafc;
+
+    color: #0f172a;
+
+    font-size: 15px;
+
+    transition: 0.3s;
+}
+
+.register-card input::placeholder {
+    color: #94a3b8;
+}
+
+.register-card input:focus {
+    background: white;
+
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+
+/* =========================================
+   AUTH MAIN BUTTON
+   ========================================= */
+
+.register-card button {
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 17px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+
+    color: white;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.register-card button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 28px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =========================================
+   BOTTOM LINKS
+   ========================================= */
+
+.bottom-links {
+    margin-top: 25px;
+
+    text-align: center;
+}
+
+.bottom-links p {
+    margin-top: 12px;
+
+    color: #64748b;
+}
+
+.home-btn {
+    display: inline-block;
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.login-link {
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.home-btn:hover,
+.login-link:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   LOGIN / REGISTER 3D OPENING
+   ========================================= */
+
+.login-card,
+.register-card {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+@keyframes authOpen {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            rotateY(85deg)
+            translateX(40px)
+            scale(0.92);
+    }
+
+    55% {
+        opacity: 1;
+
+        transform:
+            rotateY(-8deg)
+            translateX(0)
+            scale(1.02);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            rotateY(0deg)
+            translateX(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================
+   FLOATING DASHBOARD CARD
+   ========================================= */
+
+@keyframes floatCard {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    nav,
+    .auth-nav {
+        width: 94%;
+        padding: 16px 22px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .hero {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 50px 6%;
+    }
+
+    .hero-left {
+        width: 100%;
+    }
+
+    .hero-left h1 {
+        font-size: 42px;
+    }
+
+    .hero-left p {
+        font-size: 16px;
+    }
+
+    .dashboard-card {
+        width: 100%;
+        max-width: 350px;
+
+        margin-top: 45px;
+    }
+
+    .register-card {
+        width: 100%;
+        max-width: 440px;
+
+        padding: 32px 25px;
+    }
+
+    .register-card h1 {
+        font-size: 30px;
+    }
+
+    .nav-buttons button {
+        padding: 9px 16px;
+    }
+}
+/* =========================================
+   DASHBOARD
+========================================= */
+
+.dashboard-nav {
+    width: 92%;
+    margin: 20px auto;
+    padding: 18px 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+
+    box-shadow: 0 10px 35px rgba(15, 23, 42, 0.07);
+}
+
+.dashboard-user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    color: #475569;
+}
+
+.logout-btn {
+    padding: 10px 20px;
+
+    border-radius: 25px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    text-decoration: none;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #2563eb;
+    color: white;
+}
+
+
+/* Main Dashboard */
+
+.dashboard-container {
+    width: 92%;
+    max-width: 1250px;
+
+    margin: 45px auto 80px;
+}
+
+
+/* Welcome */
+
+.welcome-section {
+    margin-bottom: 35px;
+}
+
+.welcome-section h1 {
+    font-size: 38px;
+    color: #0f172a;
+}
+
+.welcome-section p {
+    margin-top: 8px;
+
+    color: #64748b;
+    font-size: 17px;
+}
+
+
+/* Finance Cards */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 22px;
+}
+
+.finance-card {
+    padding: 28px;
+
+    background: white;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+
+    box-shadow:
+        0 12px 35px rgba(15, 23, 42, 0.06);
+
+    transition: 0.3s;
+}
+
+.finance-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(15, 23, 42, 0.1);
+}
+
+.card-icon {
+    font-size: 28px;
+
+    margin-bottom: 18px;
+}
+
+.finance-card h3 {
+    color: #64748b;
+
+    font-size: 15px;
+}
+
+.finance-card h2 {
+    margin: 8px 0;
+
+    font-size: 30px;
+
+    color: #0f172a;
+}
+
+.finance-card p {
+    color: #94a3b8;
+
+    font-size: 13px;
+}
+
+
+/* AI Section */
+
+.ai-section {
+    margin-top: 30px;
+
+    padding: 45px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #f5f3ff
+        );
+
+    border: 1px solid #dbeafe;
+}
+
+.ai-badge {
+    display: inline-block;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    background: white;
+
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.ai-content h2 {
+    margin-top: 18px;
+
+    font-size: 32px;
+
+    color: #0f172a;
+}
+
+.ai-content p {
+    max-width: 720px;
+
+    margin: 12px 0 25px;
+
+    color: #64748b;
+
+    line-height: 1.7;
+}
+
+.start-plan-btn {
+    padding: 14px 25px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.start-plan-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.25);
+}
+
+
+/* Planning */
+
+.planning-section {
+    margin-top: 45px;
+}
+
+.planning-section > h2 {
+    margin-bottom: 22px;
+
+    font-size: 27px;
+
+    color: #0f172a;
+}
+
+.planning-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 22px;
+}
+
+.planning-card {
+    padding: 28px;
+
+    background: white;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.05);
+
+    transition: 0.3s;
+}
+
+.planning-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #bfdbfe;
+}
+
+.planning-card span {
+    font-size: 30px;
+}
+
+.planning-card h3 {
+    margin: 15px 0 8px;
+
+    font-size: 21px;
+}
+
+.planning-card p {
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    min-height: 68px;
+}
+
+.planning-card button {
+    margin-top: 18px;
+
+    padding: 10px 18px;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 20px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* Dashboard Mobile */
+
+@media (max-width: 800px) {
+
+    .dashboard-nav {
+        width: 94%;
+        padding: 16px 20px;
+    }
+
+    .dashboard-user span {
+        display: none;
+    }
+
+    .dashboard-container {
+        width: 90%;
+    }
+
+    .welcome-section h1 {
+        font-size: 30px;
+    }
+
+    .dashboard-grid,
+    .planning-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-section {
+        padding: 30px 24px;
+    }
+
+    .ai-content h2 {
+        font-size: 26px;
+    }
+}
+/* ============================= */
+/* FINANCIAL PROFILE PAGE */
+/* ============================= */
+
+.profile-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 50px auto;
+    position: relative;
+    z-index: 2;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.profile-header h1 {
+    font-size: 38px;
+    margin: 15px 0 10px;
+}
+
+.profile-header p {
+    color: #666;
+    font-size: 16px;
+}
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+}
+
+.form-section {
+    margin-bottom: 35px;
+}
+
+.form-section h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 14px 16px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #777;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.risk-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.risk-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.risk-option:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.risk-option input {
+    margin-top: 5px;
+}
+
+.risk-option strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.risk-option p {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+}
+
+.profile-submit {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .profile-container {
+        width: 94%;
+        margin: 30px auto;
+    }
+
+    .profile-card {
+        padding: 25px 20px;
+    }
+
+    .profile-header h1 {
+        font-size: 28px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .risk-options {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* ================================= */
+/* DASHBOARD POLISH */
+/* ================================= */
+
+.dashboard-hero {
+    max-width: 1200px;
+    margin: 45px auto 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.hero-text {
+    max-width: 700px;
+}
+
+.dashboard-label,
+.section-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #64748b;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    line-height: 1.08;
+    margin: 12px 0;
+    color: #111827;
+}
+
+.hero-text h1 span {
+    color: #2563eb;
+}
+
+.hero-text p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.hero-plan-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 22px;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.hero-plan-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+}
+
+
+/* FINANCIAL HEALTH */
+
+.health-preview {
+    width: 270px;
+    padding: 25px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.health-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.health-status {
+    color: #64748b;
+}
+
+.score-circle {
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    border: 8px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 25px auto 15px;
+}
+
+.score-circle strong {
+    font-size: 30px;
+}
+
+.score-circle small {
+    color: #94a3b8;
+}
+
+.health-preview p {
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* FINANCE CARDS */
+
+.finance-card {
+    transition: 0.25s;
+}
+
+.finance-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+.finance-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-arrow {
+    color: #94a3b8;
+    font-size: 18px;
+}
+
+.card-muted {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+
+/* AI CARD */
+
+.ai-dashboard-card {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 40px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #eff6ff, #f8fafc);
+    border: 1px solid #dbeafe;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.ai-card-content {
+    max-width: 750px;
+    position: relative;
+    z-index: 2;
+}
+
+.ai-card-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #2563eb;
+    margin-bottom: 15px;
+}
+
+.ai-card-label span {
+    margin-right: 5px;
+}
+
+.ai-dashboard-card h2 {
+    font-size: 30px;
+    line-height: 1.25;
+    margin: 0 0 15px;
+}
+
+.ai-dashboard-card h2 span {
+    color: #2563eb;
+}
+
+.ai-dashboard-card p {
+    color: #64748b;
+    line-height: 1.6;
+    max-width: 650px;
+}
+
+.ai-features {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #475569;
+}
+
+.ai-start-btn {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 20px;
+    background: white;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+    border-radius: 11px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.ai-start-btn:hover {
+    background: #2563eb;
+    color: white;
+}
+
+.ai-orb {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #dbeafe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 35px;
+}
+
+.orb-inner {
+    font-size: 40px;
+    color: #2563eb;
+}
+
+
+/* PLANNING */
+
+.planning-section {
+    max-width: 1200px;
+    margin: 60px auto 40px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    font-size: 30px;
+    margin: 8px 0 0;
+}
+
+.section-heading > p {
+    color: #64748b;
+    max-width: 350px;
+    text-align: right;
+}
+
+.planning-card {
+    position: relative;
+    transition: 0.25s;
+}
+
+.planning-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+.planning-icon {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.planning-number {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    color: #cbd5e1;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.planning-card button {
+    margin-top: 15px;
+    border: none;
+    background: transparent;
+    color: #2563eb;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+}
+
+.planning-card button span {
+    margin-left: 5px;
+}
+
+
+/* TRUST */
+
+.trust-section {
+    max-width: 1200px;
+    margin: 30px auto 60px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.trust-icon {
+    font-size: 25px;
+}
+
+.trust-section h3 {
+    margin: 0 0 5px;
+    font-size: 15px;
+}
+
+.trust-section p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .dashboard-hero {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-text h1 {
+        font-size: 36px;
+    }
+
+    .health-preview {
+        width: auto;
+    }
+
+    .ai-dashboard-card {
+        padding: 30px 25px;
+    }
+
+    .ai-orb {
+        display: none;
+    }
+
+    .section-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .section-heading > p {
+        text-align: left;
+    }
+
+    .ai-features {
+        flex-wrap: wrap;
+    }
+}
+/* ==========================================
+   SIP PLANNING PAGE
+========================================== */
+
+.sip-page {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 30px 80px;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   SIP HEADER
+========================================== */
+
+.sip-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.sip-badge {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 50px;
+    background: #eef3ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+}
+
+.sip-header h1 {
+    margin: 0;
+    font-size: 42px;
+    line-height: 1.15;
+    color: #111827;
+}
+
+.sip-header p {
+    max-width: 650px;
+    margin: 15px auto 0;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #6b7280;
+}
+
+
+/* ==========================================
+   CALCULATOR
+========================================== */
+
+.sip-calculator {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 38px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+    box-sizing: border-box;
+}
+
+.calculator-title {
+    margin-bottom: 30px;
+}
+
+.calculator-title h2 {
+    margin: 0 0 7px;
+    font-size: 25px;
+    color: #111827;
+}
+
+.calculator-title p {
+    margin: 0;
+    color: #6b7280;
+}
+
+
+/* ==========================================
+   FORM GRID
+========================================== */
+
+.sip-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.sip-field {
+    width: 100%;
+}
+
+.sip-field label {
+    display: block;
+    margin-bottom: 9px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   INPUT
+========================================== */
+
+.sip-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 52px;
+    border: 1px solid #d1d5db;
+    border-radius: 13px;
+    background: #ffffff;
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+.sip-input:focus-within {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.sip-input span {
+    padding: 0 4px 0 15px;
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.sip-input input {
+    width: 100%;
+    height: 100%;
+    padding: 0 14px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #111827;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.sip-input input::placeholder {
+    color: #9ca3af;
+}
+
+
+/* ==========================================
+   CALCULATE BUTTON
+========================================== */
+
+.sip-calculate-btn {
+    width: 100%;
+    height: 55px;
+    margin-top: 30px;
+    border: none;
+    border-radius: 14px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.sip-calculate-btn span {
+    margin-left: 8px;
+    font-size: 20px;
+}
+
+.sip-calculate-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   RESULTS
+========================================== */
+
+.sip-results {
+    max-width: 900px;
+    margin: 55px auto 0;
+}
+
+.result-heading {
+    margin-bottom: 22px;
+}
+
+.result-heading h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #111827;
+}
+
+
+/* ==========================================
+   MAIN RESULT
+========================================== */
+
+.main-result-card {
+    text-align: center;
+    padding: 38px 25px;
+    border-radius: 22px;
+    background: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.20);
+}
+
+.main-result-card p {
+    margin: 0 0 10px;
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+.main-result-card h3 {
+    margin: 0;
+    font-size: 42px;
+    line-height: 1.2;
+}
+
+.main-result-card span {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+
+/* ==========================================
+   RESULT GRID
+========================================== */
+
+.result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.result-card {
+    padding: 25px;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+}
+
+.result-card span {
+    display: block;
+    margin-bottom: 10px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.result-card strong {
+    color: #111827;
+    font-size: 23px;
+}
+
+
+/* ==========================================
+   TIP
+========================================== */
+
+.sip-tip {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    margin-top: 25px;
+    padding: 22px;
+    border-radius: 18px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+}
+
+.tip-icon {
+    font-size: 25px;
+}
+
+.sip-tip h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    color: #111827;
+}
+
+.sip-tip p {
+    margin: 0;
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   BACK BUTTON
+========================================== */
+
+.back-dashboard {
+    display: block;
+    width: fit-content;
+    margin: 25px auto 0;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.back-dashboard:hover {
+    text-decoration: underline;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 700px) {
+
+    .sip-page {
+        padding: 40px 16px 60px;
+    }
+
+    .sip-header h1 {
+        font-size: 32px;
+    }
+
+    .sip-header p {
+        font-size: 15px;
+    }
+
+    .sip-calculator {
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+
+    .sip-form-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main-result-card h3 {
+        font-size: 34px;
+    }
+
+}
+
+
+/* ==========================================
+   PLANNING PAGE NAV BUTTONS
+========================================== */
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.nav-right a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 20px;
+
+    border-radius: 25px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #2563eb;
+    background: #eff6ff;
+
+    border: 1px solid #dbeafe;
+
+    transition: 0.25s ease;
+}
+
+.nav-right a:hover {
+    background: #2563eb;
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.18);
+}
+
+
+/* Logout button */
+
+.nav-right .logout-btn {
+    background: #ffffff;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+}
+
+.nav-right .logout-btn:hover {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+
+    box-shadow:
+        0 8px 20px rgba(239, 68, 68, 0.18);
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .nav-right {
+        gap: 8px;
+    }
+
+    .nav-right a {
+        padding: 8px 13px;
+        font-size: 13px;
+    }
+
+}
+/* =========================================
+   FINANCIAL HEALTH SCORE
+========================================= */
+
+.health-score-section {
+    margin-top: 45px;
+}
+
+.health-score-section .plan-subtitle {
+    margin-bottom: 22px;
+    color: #64748b;
+    font-size: 15px;
+}
+
+
+/* Health Cards */
+
+.health-score-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+
+/* Individual Health Card */
+
+.health-score-card {
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    transition: 0.25s ease;
+}
+
+.health-score-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+}
+
+
+/* Card Icon */
+
+.health-score-icon {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+
+/* Card Heading */
+
+.health-score-card h3 {
+    margin: 0 0 8px;
+    color: #64748b;
+    font-size: 15px;
+}
+
+
+/* Main Value */
+
+.health-score-value {
+    margin: 0;
+    color: #0f172a;
+    font-size: 34px;
+    font-weight: 700;
+}
+
+
+/* Description */
+
+.health-score-description {
+    margin-top: 8px;
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   TOP 3 ACTIONS
+========================================= */
+
+.top-actions-container {
+    margin-top: 25px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.top-actions-header {
+    margin-bottom: 22px;
+}
+
+.top-actions-header h3 {
+    margin: 0 0 7px;
+    color: #0f172a;
+    font-size: 22px;
+}
+
+.top-actions-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* Action List */
+
+.top-actions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+
+/* Action Item */
+
+.top-action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+
+    padding: 18px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+
+    transition: 0.25s ease;
+}
+
+.top-action-item:hover {
+    transform: translateX(4px);
+    border-color: #bfdbfe;
+    background: #eff6ff;
+}
+
+
+/* Action Number */
+
+.action-number {
+    min-width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* Action Text */
+
+.top-action-item p {
+    margin: 4px 0 0;
+
+    color: #475569;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   HEALTH STATUS
+========================================= */
+
+.health-status-text {
+    display: inline-block;
+
+    margin-top: 8px;
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   HEALTH SCORE MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .health-score-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .health-score-card {
+        padding: 24px;
+    }
+
+    .top-actions-container {
+        padding: 24px;
+    }
+
+    .top-action-item {
+        gap: 12px;
+    }
+
+}
+/* Get Started Button */
+
+.nav-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 24px !important;
+
+    border-radius: 12px !important;
+
+    background: linear-gradient(135deg, #2563eb, #4f46e5) !important;
+
+    color: #ffffff !important;
+
+    text-decoration: none !important;
+
+    font-weight: 600 !important;
+    font-size: 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.25);
+
+    transition: all 0.25s ease;
+}
+
+
+/* Hover */
+
+.nav-btn:hover {
+
+    transform: translateY(-2px);
+
+    background: linear-gradient(135deg, #1d4ed8, #4338ca) !important;
+
+    box-shadow:
+        0 12px 28px rgba(37, 99, 235, 0.4);
+
+}
+
+
+/* Click */
+
+.nav-btn:active {
+
+    transform: translateY(0);
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.25);
+
+}
+
+/* Toast notification styling */
+.flash-message {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    min-width: 280px;
+    max-width: 380px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #1f2937;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-left: 5px solid #2563eb;
+    font-size: 15px;
+    animation: toastIn 0.35s ease-out;
+}
+
+.flash-message.success {
+    border-left-color: #16a34a;
+}
+
+.flash-message.error {
+    border-left-color: #dc2626;
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

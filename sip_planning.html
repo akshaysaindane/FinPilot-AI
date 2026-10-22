@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SIP Planning | FinPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- ============================= -->
+    <!-- NAVBAR -->
+    <!-- ============================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            FinPilot <span>AI</span>
+        </div>
+
+        <div class="nav-right">
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <!-- ============================= -->
+    <!-- MAIN PAGE -->
+    <!-- ============================= -->
+
+    <main class="sip-page">
+
+
+        <!-- ============================= -->
+        <!-- PAGE HEADER -->
+        <!-- ============================= -->
+
+        <div class="sip-header">
+
+            <div class="sip-badge">
+                SIP PLANNER
+            </div>
+
+            <h1>
+                Build Your Investment Plan
+            </h1>
+
+            <p>
+                Calculate the monthly SIP required to reach your
+                financial goal.
+            </p>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- FLASH MESSAGES -->
+        <!-- ============================= -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- ============================= -->
+        <!-- SIP CALCULATOR -->
+        <!-- ============================= -->
+
+        <div class="sip-calculator">
+
+            <div class="calculator-title">
+
+                <h2>
+                    SIP Calculator
+                </h2>
+
+                <p>
+                    Enter your investment details below
+                </p>
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- SIP FORM -->
+            <!-- ============================= -->
+
+            <form
+                method="POST"
+                action="{{ url_for('sip_planning') }}"
+            >
+
+                <div class="sip-form-grid">
+
+
+                    <!-- ============================= -->
+                    <!-- GOAL AMOUNT -->
+                    <!-- ============================= -->
+
+                    <div class="sip-field">
+
+                        <label for="goal_amount">
+                            Financial Goal Amount
+                        </label>
+
+                        <div class="sip-input">
+
+                            <span>₹</span>
+
+                            <input
+                                type="number"
+                                id="goal_amount"
+                                name="goal_amount"
+                                placeholder="10,00,000"
+                                min="1"
+                                step="0.01"
+                                value="{{ request.form.get('goal_amount', '') }}"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ============================= -->
+                    <!-- CURRENT INVESTMENT -->
+                    <!-- ============================= -->
+
+                    <div class="sip-field">
+
+                        <label for="current_investment">
+                            Current Investment
+                        </label>
+
+                        <div class="sip-input">
+
+                            <span>₹</span>
+
+                            <input
+                                type="number"
+                                id="current_investment"
+                                name="current_investment"
+                                placeholder="1,00,000"
+                                min="0"
+                                step="0.01"
+                                value="{{ request.form.get('current_investment', '0') }}"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ============================= -->
+                    <!-- INVESTMENT PERIOD -->
+                    <!-- ============================= -->
+
+                    <div class="sip-field">
+
+                        <label for="years">
+                            Investment Period
+                        </label>
+
+                        <div class="sip-input">
+
+                            <input
+                                type="number"
+                                id="years"
+                                name="years"
+                                placeholder="10"
+                                min="1"
+                                max="100"
+                                value="{{ request.form.get('years', '') }}"
+                                required
+                            >
+
+                            <span>Years</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ============================= -->
+                    <!-- EXPECTED RETURN -->
+                    <!-- ============================= -->
+
+                    <div class="sip-field">
+
+                        <label for="annual_return">
+                            Expected Annual Return
+                        </label>
+
+                        <div class="sip-input">
+
+                            <input
+                                type="number"
+                                id="annual_return"
+                                name="annual_return"
+                                placeholder="12"
+                                min="0"
+                                max="100"
+                                step="0.1"
+                                value="{{ request.form.get('annual_return', '12') }}"
+                                required
+                            >
+
+                            <span>%</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- CALCULATE BUTTON -->
+                <!-- ============================= -->
+
+                <button
+                    type="submit"
+                    class="sip-calculate-btn"
+                >
+                    Calculate My SIP
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- RESULT SECTION -->
+        <!-- ============================= -->
+
+        {% if sip_result %}
+
+        <div class="sip-results">
+
+
+            <!-- ============================= -->
+            <!-- RESULT HEADER -->
+            <!-- ============================= -->
+
+            <div class="result-heading">
+
+                <div>
+
+                    <div class="sip-badge">
+                        YOUR PLAN
+                    </div>
+
+                    <h2>
+                        Your SIP Projection
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- MAIN RESULT -->
+            <!-- ============================= -->
+
+            <div class="main-result-card">
+
+                <p>
+                    Required Monthly SIP
+                </p>
+
+                <h3>
+                    ₹{{ "{:,.0f}".format(sip_result.monthly_sip) }}
+                </h3>
+
+                <span>
+                    estimated monthly investment required
+                </span>
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- RESULT GRID -->
+            <!-- ============================= -->
+
+            <div class="result-grid">
+
+
+                <!-- CURRENT INVESTMENT VALUE -->
+                <div class="result-card">
+
+                    <span>
+                        Future Value of Current Investment
+                    </span>
+
+                    <strong>
+                        ₹{{ "{:,.0f}".format(sip_result.current_value) }}
+                    </strong>
+
+                </div>
+
+
+                <!-- REMAINING AMOUNT -->
+                <div class="result-card">
+
+                    <span>
+                        Remaining Amount to Reach Goal
+                    </span>
+
+                    <strong>
+                        ₹{{ "{:,.0f}".format(sip_result.remaining_amount) }}
+                    </strong>
+
+                </div>
+
+
+                <!-- TOTAL SIP -->
+                <div class="result-card">
+
+                    <span>
+                        Total SIP Contribution
+                    </span>
+
+                    <strong>
+                        ₹{{ "{:,.0f}".format(sip_result.total_sip) }}
+                    </strong>
+
+                </div>
+
+
+                <!-- GOAL AMOUNT -->
+                <div class="result-card">
+
+                    <span>
+                        Target Goal
+                    </span>
+
+                    <strong>
+                        ₹{{ "{:,.0f}".format(sip_result.goal_amount) }}
+                    </strong>
+
+                </div>
+
+
+                <!-- INVESTMENT PERIOD -->
+                <div class="result-card">
+
+                    <span>
+                        Investment Period
+                    </span>
+
+                    <strong>
+                        {{ sip_result.years }} years
+                    </strong>
+
+                </div>
+
+
+                <!-- MONTHLY SIP -->
+                <div class="result-card">
+
+                    <span>
+                        Monthly SIP
+                    </span>
+
+                    <strong>
+                        ₹{{ "{:,.0f}".format(sip_result.monthly_sip) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- FINPILOT INSIGHT -->
+            <!-- ============================= -->
+
+            <div class="sip-tip">
+
+                <div class="tip-icon">
+                    💡
+                </div>
+
+                <div>
+
+                    <h3>
+                        FinPilot AI Insight
+                    </h3>
+
+                    {% if sip_result.remaining_amount <= 0 %}
+
+                        <p>
+                            Your current investment is projected to
+                            reach or exceed your target over the
+                            selected period. No additional monthly SIP
+                            may be required based on these assumptions.
+                        </p>
+
+                    {% else %}
+
+                        <p>
+                            Based on your target, investment period and
+                            expected return, an estimated monthly SIP of
+                            ₹{{ "{:,.0f}".format(sip_result.monthly_sip) }}
+                            may be required to reach your goal.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- PLANNING NOTE -->
+            <!-- ============================= -->
+
+            <div class="sip-tip">
+
+                <div class="tip-icon">
+                    📊
+                </div>
+
+                <div>
+
+                    <h3>
+                        Planning Note
+                    </h3>
+
+                    <p>
+                        This SIP projection is an estimate based on the
+                        expected annual return you entered. Actual
+                        investment returns can vary over time, so the
+                        actual investment value may be different.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- BACK TO DASHBOARD -->
+            <!-- ============================= -->
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="back-dashboard"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+        {% endif %}
+
+
+    </main>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

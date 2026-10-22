@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | FinPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Background Effects -->
+    <div class="background-blur blur1"></div>
+    <div class="background-blur blur2"></div>
+
+
+    <!-- Navbar -->
+    <nav class="auth-nav">
+
+        <div class="logo">
+            💰 FinPilot AI
+        </div>
+
+    </nav>
+
+
+    <!-- Register Container -->
+    <div class="register-container">
+
+        <div class="register-card">
+
+            <h1>
+                Create Account ✨
+            </h1>
+
+            <p>
+                Join FinPilot AI and start managing your finances.
+            </p>
+
+
+            <!-- Register Form -->
+            <form method="POST" action="/register">
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="👤 Full Name"
+                    required
+                >
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="📧 Email Address"
+                    required
+                >
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="🔒 Password"
+                    required
+                >
+
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="🔐 Confirm Password"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="register-btn"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <!-- Bottom Links -->
+            <div class="bottom-links">
+
+                <a href="/" class="home-btn">
+                    ← Back to Home
+                </a>
+
+                <p>
+                    Already have an account?
+
+                    <a
+                        href="/login"
+                        class="login-link"
+                    >
+                        Login
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

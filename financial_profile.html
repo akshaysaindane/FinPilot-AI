@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Financial Profile | FinPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="background-blur blur1"></div>
+    <div class="background-blur blur2"></div>
+
+    <nav class="dashboard-nav">
+
+        <div class="logo">
+            💰 FinPilot AI
+        </div>
+
+        <div class="dashboard-user">
+
+            <span>
+                👋 {{ session["user_name"] }}
+            </span>
+
+            <a href="/logout" class="logout-btn">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="profile-container">
+
+        <div class="profile-header">
+
+            <span class="ai-badge">
+                🤖 FINPILOT AI
+            </span>
+
+            <h1>
+                Let's Understand Your Finances
+            </h1>
+
+            <p>
+                Enter your financial details and we'll create
+                a personalized plan for you.
+            </p>
+
+        </div>
+
+
+        <div class="profile-card">
+
+            <form method="POST" action="/financial-profile">
+
+                <div class="form-section">
+
+                    <h2>💰 Your Money</h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>Monthly Income</label>
+
+                            <input
+                                type="number"
+                                name="income"
+                                placeholder="₹ 50,000"
+                                min="0"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Monthly Expenses</label>
+
+                            <input
+                                type="number"
+                                name="expenses"
+                                placeholder="₹ 30,000"
+                                min="0"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Current Savings</label>
+
+                            <input
+                                type="number"
+                                name="savings"
+                                placeholder="₹ 2,00,000"
+                                min="0"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Current Investments</label>
+
+                            <input
+                                type="number"
+                                name="investments"
+                                placeholder="₹ 1,00,000"
+                                min="0"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <h2>🎯 Your Goal</h2>
+
+                    <div class="form-group full-width">
+
+                        <label>
+                            What is your main financial goal?
+                        </label>
+
+                        <select name="goal" required>
+
+                            <option value="">
+                                Select your goal
+                            </option>
+
+                            <option value="wealth">
+                                💰 Build Wealth
+                            </option>
+
+                            <option value="house">
+                                🏠 Buy a House
+                            </option>
+
+                            <option value="car">
+                                🚗 Buy a Car
+                            </option>
+
+                            <option value="education">
+                                🎓 Education
+                            </option>
+
+                            <option value="retirement">
+                                🏖️ Retirement
+                            </option>
+
+                            <option value="emergency">
+                                🛡️ Emergency Fund
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <h2>👤 About You</h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Your Age</label>
+
+                            <input
+                                type="number"
+                                name="age"
+                                placeholder="25"
+                                min="18"
+                                max="100"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Retirement Age</label>
+
+                            <input
+                                type="number"
+                                name="retirement_age"
+                                placeholder="60"
+                                min="40"
+                                max="100"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <h2>⚖️ Investment Risk</h2>
+
+                    <div class="risk-options">
+
+                        <label class="risk-option">
+
+                            <input
+                                type="radio"
+                                name="risk"
+                                value="low"
+                                required
+                            >
+
+                            <div>
+                                <strong>🟢 Low Risk</strong>
+                                <p>Safety is my priority.</p>
+                            </div>
+
+                        </label>
+
+
+                        <label class="risk-option">
+
+                            <input
+                                type="radio"
+                                name="risk"
+                                value="medium"
+                            >
+
+                            <div>
+                                <strong>🟡 Medium Risk</strong>
+                                <p>I want balanced growth.</p>
+                            </div>
+
+                        </label>
+
+
+                        <label class="risk-option">
+
+                            <input
+                                type="radio"
+                                name="risk"
+                                value="high"
+                            >
+
+                            <div>
+                                <strong>🔴 High Risk</strong>
+                                <p>I prefer higher growth.</p>
+                            </div>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="start-plan-btn profile-submit"
+                >
+                    Generate My Financial Plan 🚀
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

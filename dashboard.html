@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | FinPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+    <div class="background-blur blur1"></div>
+    <div class="background-blur blur2"></div>
+
+
+    <!-- ==============================
+         NAVBAR
+    =============================== -->
+
+    <nav class="dashboard-nav">
+
+        <div class="logo">
+            💰 FinPilot AI
+        </div>
+
+
+        <div class="dashboard-user">
+
+            <span class="user-name">
+                👋 {{ user_name|title }}
+            </span>
+
+            <a href="{{ url_for('logout') }}"
+               class="logout-btn">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ==============================
+         MAIN DASHBOARD
+    =============================== -->
+
+    <main class="dashboard-container">
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome-section">
+
+            <div>
+
+                <h1>
+                    Welcome back, {{ user_name|title }} 👋
+                </h1>
+
+                <p>
+                    Let's take control of your financial future.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==============================
+             FINANCIAL SUMMARY
+        =============================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- SAVINGS -->
+
+            <div class="finance-card">
+
+                <div class="card-icon">
+                    💰
+                </div>
+
+                <h3>
+                    Total Savings
+                </h3>
+
+
+                {% if profile %}
+
+                    <h2>
+                        ₹{{ "{:,.0f}".format(profile["savings"]) }}
+                    </h2>
+
+                    <p>
+                        Your current savings
+                    </p>
+
+                {% else %}
+
+                    <h2>
+                        ₹0
+                    </h2>
+
+                    <p>
+                        Complete your financial profile
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- INVESTMENTS -->
+
+            <div class="finance-card">
+
+                <div class="card-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Investments
+                </h3>
+
+
+                {% if profile %}
+
+                    <h2>
+                        ₹{{ "{:,.0f}".format(profile["investments"]) }}
+                    </h2>
+
+                    <p>
+                        Your current investments
+                    </p>
+
+                {% else %}
+
+                    <h2>
+                        ₹0
+                    </h2>
+
+                    <p>
+                        Complete your financial profile
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- FINANCIAL GOAL -->
+
+            <div class="finance-card">
+
+                <div class="card-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Financial Goal
+                </h3>
+
+
+                {% if profile %}
+
+                    <h2>
+                        {{ profile["goal"]|title }}
+                    </h2>
+
+                    <p>
+                        Your primary financial goal
+                    </p>
+
+                {% else %}
+
+                    <h2>
+                        —
+                    </h2>
+
+                    <p>
+                        Set your first financial goal
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==============================
+             FINANCIAL HEALTH SCORE
+        =============================== -->
+
+        {% if financial_plan %}
+
+        <section class="health-score-section">
+
+            <h2>
+                ❤️ Financial Health
+            </h2>
+
+            <p class="plan-subtitle">
+                A quick snapshot of your current financial position.
+            </p>
+
+
+            <div class="health-score-grid">
+
+
+                <!-- HEALTH SCORE -->
+
+                <div class="health-score-card">
+
+                    <div class="health-score-icon">
+                        💯
+                    </div>
+
+                    <h3>
+                        Health Score
+                    </h3>
+
+                    <h2 class="health-score-value">
+                        {{ financial_plan["financial_health_score"] }}/100
+                    </h2>
+
+                    <p class="health-score-description">
+                        Your overall financial health score.
+                    </p>
+
+                </div>
+
+
+
+                <!-- HEALTH STATUS -->
+
+                <div class="health-score-card">
+
+                    <div class="health-score-icon">
+                        📌
+                    </div>
+
+                    <h3>
+                        Financial Status
+                    </h3>
+
+                    <h2>
+                        {{ financial_plan["health_status"] }}
+                    </h2>
+
+                    <span class="health-status-text">
+                        Based on your current financial profile
+                    </span>
+
+                    <p class="health-score-description">
+                        Based on your savings, surplus,
+                        investments and retirement timeline.
+                    </p>
+
+                </div>
+
+
+
+                <!-- MONTHLY SURPLUS -->
+
+                <div class="health-score-card">
+
+                    <div class="health-score-icon">
+                        💵
+                    </div>
+
+                    <h3>
+                        Monthly Surplus
+                    </h3>
+
+                    <h2 class="health-score-value">
+                        ₹{{ "{:,.0f}".format(
+                            financial_plan["monthly_surplus"]
+                        ) }}
+                    </h2>
+
+                    <p class="health-score-description">
+                        Your estimated income remaining
+                        after monthly expenses.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ==============================
+                 TOP 3 ACTIONS
+            =============================== -->
+
+            <div class="top-actions-container">
+
+                <div class="top-actions-header">
+
+                    <h3>
+                        🚀 Top 3 Actions
+                    </h3>
+
+                    <p>
+                        What you should focus on next to improve
+                        your financial health.
+                    </p>
+
+                </div>
+
+
+                {% if financial_plan["top_actions"] %}
+
+                    <div class="top-actions-list">
+
+                        {% for action in financial_plan["top_actions"] %}
+
+                            <div class="top-action-item">
+
+                                <span class="action-number">
+                                    {{ loop.index }}
+                                </span>
+
+                                <p>
+                                    {{ action }}
+                                </p>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="top-action-item">
+
+                        <span class="action-number">
+                            ✓
+                        </span>
+
+                        <p>
+                            Your finances are currently on a healthy track.
+                            Keep following your financial plan consistently.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+
+        <!-- ==============================
+             AI PLANNING SECTION
+        =============================== -->
+
+        <section class="ai-section">
+
+            <div class="ai-content">
+
+                <span class="ai-badge">
+                    🤖 FINPILOT AI
+                </span>
+
+
+                <h2>
+                    Build Your Financial Plan
+                </h2>
+
+
+                <p>
+                    Tell us about your income, expenses, savings
+                    and financial goals. FinPilot AI will help you
+                    create a personalized investment and retirement plan.
+                </p>
+
+
+                <a href="{{ url_for('financial_profile') }}"
+                   class="start-plan-btn">
+
+                    {% if profile %}
+                        Update Financial Profile →
+                    {% else %}
+                        Start Financial Planning →
+                    {% endif %}
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==============================
+             FINPILOT FINANCIAL PLAN
+        =============================== -->
+
+        {% if financial_plan %}
+
+        <section class="planning-section">
+
+            <h2>
+                🤖 Your FinPilot Plan
+            </h2>
+
+            <p class="plan-subtitle">
+                Personalized insights based on your financial profile.
+            </p>
+
+
+            <div class="planning-grid">
+
+
+                <!-- MONTHLY SURPLUS -->
+
+                <div class="planning-card">
+
+                    <span>
+                        💵
+                    </span>
+
+                    <h3>
+                        Monthly Surplus
+                    </h3>
+
+                    <h2>
+                        ₹{{ "{:,.0f}".format(
+                            financial_plan["monthly_surplus"]
+                        ) }}
+                    </h2>
+
+                    <p>
+                        {{ financial_plan["surplus_message"] }}
+                    </p>
+
+                </div>
+
+
+
+                <!-- EMERGENCY FUND -->
+
+                <div class="planning-card">
+
+                    <span>
+                        🛡️
+                    </span>
+
+                    <h3>
+                        Emergency Fund
+                    </h3>
+
+                    <h2>
+                        ₹{{ "{:,.0f}".format(
+                            financial_plan["emergency_fund_target"]
+                        ) }}
+                    </h2>
+
+                    <p>
+                        {{ financial_plan["emergency_message"] }}
+                    </p>
+
+                </div>
+
+
+
+                <!-- SIP -->
+
+                <div class="planning-card">
+
+                    <span>
+                        📊
+                    </span>
+
+                    <h3>
+                        Suggested SIP
+                    </h3>
+
+                    <h2>
+                        ₹{{ "{:,.0f}".format(
+                            financial_plan["recommended_sip"]
+                        ) }}
+                    </h2>
+
+                    <p>
+                        Suggested starting monthly investment based
+                        on your current surplus and risk level.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- GOAL + INVESTMENT STRATEGY -->
+
+            <div class="ai-section plan-details">
+
+                <div class="ai-content">
+
+                    <span class="ai-badge">
+                        🎯 YOUR GOAL
+                    </span>
+
+
+                    <h2>
+                        Your Financial Direction
+                    </h2>
+
+
+                    <p>
+                        {{ financial_plan["goal_message"] }}
+                    </p>
+
+
+                    <span class="ai-badge">
+                        ⚖️ INVESTMENT APPROACH
+                    </span>
+
+
+                    <p>
+                        {{ financial_plan["investment_strategy"] }}
+                    </p>
+
+
+                    {% if financial_plan["retirement_years"] > 0 %}
+
+                    <p>
+
+                        🏖️ You have approximately
+
+                        <strong>
+                            {{ financial_plan["retirement_years"] }}
+                        </strong>
+
+                        years until your planned retirement.
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+        {% else %}
+
+
+        <!-- NO PROFILE -->
+
+        <section class="planning-section">
+
+            <h2>
+                🤖 Your Financial Plan
+            </h2>
+
+
+            <div class="ai-section">
+
+                <div class="ai-content">
+
+                    <span class="ai-badge">
+                        GET STARTED
+                    </span>
+
+
+                    <h2>
+                        Let's build your plan.
+                    </h2>
+
+
+                    <p>
+                        Complete your financial profile and
+                        FinPilot AI will analyze your finances
+                        to create personalized recommendations.
+                    </p>
+
+
+                    <a href="{{ url_for('financial_profile') }}"
+                       class="start-plan-btn">
+
+                        Create Financial Profile →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+
+        <!-- ==============================
+             PLANNING OPTIONS
+        =============================== -->
+
+        <section class="planning-section">
+
+            <h2>
+                What do you want to plan?
+            </h2>
+
+
+            <div class="planning-grid">
+
+
+                <!-- SIP -->
+
+                <div class="planning-card">
+
+                    <span>
+                        📊
+                    </span>
+
+
+                    <h3>
+                        SIP Planning
+                    </h3>
+
+
+                    <p>
+                        Calculate how much you should invest
+                        every month to reach your goal.
+                    </p>
+
+
+                    <a href="{{ url_for('sip_planning') }}"
+                       class="start-plan-btn">
+
+                        Explore SIP →
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- SWP -->
+
+                <div class="planning-card">
+
+                    <span>
+                        💸
+                    </span>
+
+
+                    <h3>
+                        SWP Planning
+                    </h3>
+
+
+                    <p>
+                        Plan regular withdrawals from your
+                        investment corpus.
+                    </p>
+
+
+                    <a href="{{ url_for('swp_planning') }}"
+                       class="start-plan-btn">
+
+                        Explore SWP →
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- RETIREMENT -->
+
+                <div class="planning-card">
+
+                    <span>
+                        🏖️
+                    </span>
+
+
+                    <h3>
+                        Retirement Planning
+                    </h3>
+
+
+                    <p>
+                        Estimate your retirement corpus and
+                        build a personalized plan.
+                    </p>
+
+
+                    <a href="{{ url_for('retirement_planning') }}"
+                       class="start-plan-btn">
+
+                        Plan Retirement →
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- FINANCIAL GOALS -->
+
+                <div class="planning-card">
+
+                    <span>
+                        🎯
+                    </span>
+
+
+                    <h3>
+                        Financial Goals
+                    </h3>
+
+
+                    <p>
+                        Plan for your house, car, education
+                        or other important financial goals.
+                    </p>
+
+
+                    <a href="{{ url_for('financial_goals') }}"
+                       class="start-plan-btn">
+
+                        Plan Goal →
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | FinPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Background Effects -->
+    <div class="background-blur blur1"></div>
+    <div class="background-blur blur2"></div>
+
+
+    <!-- Navbar -->
+    <nav class="auth-nav">
+
+        <div class="logo">
+            💰 FinPilot AI
+        </div>
+
+    </nav>
+
+
+    <!-- Login Container -->
+    <div class="register-container">
+
+        <div class="register-card login-card">
+
+            <h1>
+                Welcome Back 👋
+            </h1>
+
+            <p>
+                
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+                Login to your FinPilot AI account and manage your finances.
+            </p>
+
+
+            <!-- Login Form -->
+            <form
+                method="POST"
+                action="/login"
+                autocomplete="off"
+            >
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="📧 Email Address"
+                    autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
+                    required
+                >
+
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="🔒 Password"
+                    autocomplete="new-password"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="register-btn"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <!-- Bottom Links -->
+            <div class="bottom-links">
+
+                <a href="/" class="home-btn">
+                    ← Back to Home
+                </a>
+
+
+                <p>
+                    Don't have an account?
+
+                    <a
+                        href="/register"
+                        class="login-link"
+                    >
+                        Create Account
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script>
+    document.querySelectorAll(".flash-message").forEach(function (message) {
+        setTimeout(function () {
+            message.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+            message.style.opacity = "0";
+            message.style.transform = "translateX(30px)";
+
+            setTimeout(function () {
+                message.remove();
+            }, 500);
+        }, 3500);
+    });
+</script>
+
+</body>
+
+</html>
